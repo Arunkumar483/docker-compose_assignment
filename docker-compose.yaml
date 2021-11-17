@@ -1,0 +1,23 @@
+version: '3'
+ 
+services:
+    db:
+        image: mysql:5.7
+        container_name: db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: crud_db
+        ports:
+            - "6033:3306"
+        volumes:
+            - ./data/db:/var/lib/mysql
+    
+    app:
+        build: ./php
+        container_name: phpapp
+        environment:
+            MYSQLPASSWORD: root
+        volumes:
+            - ./php/src:/var/www/html/
+        ports:
+            - 8000:81
